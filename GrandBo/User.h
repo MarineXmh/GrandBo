@@ -1,0 +1,17 @@
+//
+//  User.h
+//  GrandBo
+//
+//  Created by Xu Menghua on 15/9/12.
+//  Copyright (c) 2015年 Xu Menghua. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface User : NSObject
+
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *avatarURL;
+@property (nonatomic, assign) int id;
+
+@end
