@@ -77,6 +77,8 @@
     }
     
     cell.cellFrame = self.statusFrames[indexPath.row];
+    cell.delegate = self;
+    cell.indexPath = indexPath;
     //NSLog(@"%@",cell.cellFrame.status.user.name);
     return cell;
 }
@@ -148,17 +150,18 @@
         NSError *jsonError = nil;
         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
         NSArray *array = [dictionary objectForKey:@"microposts"];
+        //NSLog(@"%@", array);
         
         for (int i = 0; i < array.count; i++) {
             User *user = [[User alloc]init];
             Status *status = [[Status alloc]init];
             HomeCellFrame *cellFrame = [[HomeCellFrame alloc]init];
             user.name = [[array[i] objectForKey:@"user"]objectForKey:@"name"];
-            user.id = (int)[[array[i] objectForKey:@"user"]objectForKey:@"id"];
+            user.id = [[array[i] objectForKey:@"user"]objectForKey:@"id"];
             user.avatarURL = [[array[i] objectForKey:@"user"]objectForKey:@"avatar_url"];
             status.content = [array[i] objectForKey:@"content"];
             status.time = [array[i] objectForKey:@"created_at"];
-            status.id = (int)[array[i] objectForKey:@"id"];
+            status.id = [array[i] objectForKey:@"id"];
             status.user = user;
             cellFrame.status = status;
             [self.statusFrames addObject:cellFrame];
@@ -235,6 +238,32 @@
     [self getFeed:self.pageIndex++];
     [self.footer endRefresh];
     [self.tableView reloadData];
+}
+
+#pragma mark - 处理Toolbar按钮点击事件
+
+- (void)didExpandBtnClicked:(CellToolBarButton *)button indexPath:(NSIndexPath *)indexPath {
+    
+}
+
+- (void)didCommentBtnClicked:(CellToolBarButton *)button indexPath:(NSIndexPath *)indexPath {
+    HomeCellFrame *cellFrame = [self.statusFrames objectAtIndex:indexPath.row];
+    Status *status = cellFrame.status;
+    //NSLog(@"%@", button);
+    //NSLog(@"%ld",indexPath.row);
+    [self performSegueWithIdentifier:@"comment" sender:status];
+}
+
+- (void)didGoodBtnClicked:(CellToolBarButton *)button indexPath:(NSIndexPath *)indexPath {
+    
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"comment"]) {
+        UIViewController *destination = [segue destinationViewController];
+        [destination setValue:sender forKey:@"status"];
+        //NSLog(@"%@", [sender valueForKeyPath:@"id"]);
+    }
 }
 
 @end

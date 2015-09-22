@@ -10,9 +10,20 @@
 
 @class Status;
 @class HomeCellFrame;
+@class CellToolBarButton;
+
+@protocol HomeTableViewCellDelegate <NSObject>
+
+- (void)didExpandBtnClicked:(CellToolBarButton *)button indexPath:(NSIndexPath *)indexPath;
+- (void)didCommentBtnClicked:(CellToolBarButton *)button indexPath:(NSIndexPath *)indexPath;
+- (void)didGoodBtnClicked:(CellToolBarButton *)button indexPath:(NSIndexPath *)indexPath;
+
+@end
 
 @interface HomeTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) HomeCellFrame *cellFrame;
+@property (nonatomic, strong) id<HomeTableViewCellDelegate> delegate;
+@property (nonatomic, strong) NSIndexPath *indexPath;
 
 @end

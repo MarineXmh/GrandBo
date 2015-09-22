@@ -12,6 +12,6 @@
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *avatarURL;
-@property (nonatomic, assign) int id;
+@property (nonatomic, strong) NSNumber *id;
 
 @end

@@ -46,11 +46,59 @@
                         <outlet property="tableView" destination="Ros-eJ-GOD" id="nld-u7-VrT"/>
                         <outlet property="usernameTitle" destination="Dl0-sE-A0c" id="58H-cT-XaP"/>
                         <segue destination="bV4-DJ-GcH" kind="modal" identifier="login" id="3pv-Pu-gAF"/>
+                        <segue destination="WGO-w0-RuN" kind="modal" identifier="comment" modalTransitionStyle="crossDissolve" id="Isk-U3-NFv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1274" y="-703"/>
+        </scene>
+        <!--Comment-->
+        <scene sceneID="loA-Qk-DaL">
+            <objects>
+                <viewController title="Comment" id="WGO-w0-RuN" customClass="CommentController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hKK-PO-t2m">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" id="8Qf-fe-Bp6">
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="发评论" id="9eA-j1-Q0v">
+                                        <barButtonItem key="leftBarButtonItem" title="取消" style="plain" id="Y1Z-Gh-jzD">
+                                            <connections>
+                                                <action selector="cancel:" destination="WGO-w0-RuN" id="zfC-zB-iLp"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="发送" id="uxu-F7-pkF">
+                                            <connections>
+                                                <action selector="sendComment:" destination="WGO-w0-RuN" id="8C6-lZ-YxZ"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="写评论..." id="dEQ-UT-YFA">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="WGO-w0-RuN" id="8PR-tr-je8"/>
+                                </connections>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="contentView" destination="dEQ-UT-YFA" id="5u1-et-JIa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GcP-6Q-JNk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-828" y="-703"/>
         </scene>
         <!--Profile-->
         <scene sceneID="vwP-st-BKH">

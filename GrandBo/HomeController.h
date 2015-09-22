@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HomeTableViewCell.h"
 
 @class HomeTableViewCell;
 
-@interface HomeController : UIViewController <UITableViewDataSource,UITableViewDelegate>
+@interface HomeController : UIViewController <UITableViewDataSource,UITableViewDelegate,HomeTableViewCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *usernameTitle;

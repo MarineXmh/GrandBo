@@ -14,7 +14,7 @@
 
 @property (nonatomic, strong) User *user;
 @property (nonatomic, strong) NSString *content;
-@property (nonatomic, assign) int id;
+@property (nonatomic, strong) NSNumber *id;
 @property (nonatomic, strong) NSString *time;
 
 @end

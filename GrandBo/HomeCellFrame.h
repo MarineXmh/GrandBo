@@ -18,6 +18,7 @@
 @property (nonatomic, assign) CGRect timeFrame;
 @property (nonatomic, assign) CGRect fromFrame;
 @property (nonatomic, assign) CGRect contentFrame;
+@property (nonatomic, assign) CGRect toolBarFrame;
 @property (nonatomic, assign) CGFloat cellHeight;
 @property (nonatomic, strong) Status *status;
 

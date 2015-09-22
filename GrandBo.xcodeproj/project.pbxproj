@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		8A4CAAFB1B97416500C8AD00 /* MessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4CAAFA1B97416500C8AD00 /* MessageController.m */; };
 		8A4CAAFE1B9741B600C8AD00 /* HomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4CAAFD1B9741B600C8AD00 /* HomeController.m */; };
+		8A546F491BAF17DA00CE3A3F /* CellToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A546F481BAF17DA00CE3A3F /* CellToolBar.m */; settings = {ASSET_TAGS = (); }; };
+		8A546F4C1BAF1B6900CE3A3F /* CellToolBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A546F4B1BAF1B6900CE3A3F /* CellToolBarButton.m */; settings = {ASSET_TAGS = (); }; };
 		8A93D0721B9605750056D6CA /* images in Resources */ = {isa = PBXBuildFile; fileRef = 8A93D0711B9605750056D6CA /* images */; };
 		8AA4A22A1B95F66400FC6772 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA4A2291B95F66400FC6772 /* main.m */; };
 		8AA4A22D1B95F66400FC6772 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA4A22C1B95F66400FC6772 /* AppDelegate.m */; };
@@ -24,6 +26,7 @@
 		8AD718701BA42440000C896D /* HomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD7186F1BA42440000C896D /* HomeTableViewCell.m */; };
 		8AD718731BA424CE000C896D /* Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD718721BA424CE000C896D /* Status.m */; };
 		8AD718761BA42637000C896D /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD718751BA42637000C896D /* User.m */; };
+		8AD762EA1BB05B74008DBFBC /* CommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD762E91BB05B74008DBFBC /* CommentController.m */; settings = {ASSET_TAGS = (); }; };
 		8AD7E3DC1BAD35630023B492 /* LGRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD7E3DB1BAD35630023B492 /* LGRefreshView.m */; settings = {ASSET_TAGS = (); }; };
 		8AD7E3DF1BAD38700023B492 /* DACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD7E3DE1BAD38700023B492 /* DACircularProgressView.m */; settings = {ASSET_TAGS = (); }; };
 		8AD7E3E81BADC5040023B492 /* LoadMoreFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD7E3E71BADC5040023B492 /* LoadMoreFooter.m */; settings = {ASSET_TAGS = (); }; };
@@ -46,6 +49,10 @@
 		8A4CAAFA1B97416500C8AD00 /* MessageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageController.m; sourceTree = "<group>"; };
 		8A4CAAFC1B9741B600C8AD00 /* HomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeController.h; sourceTree = "<group>"; };
 		8A4CAAFD1B9741B600C8AD00 /* HomeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeController.m; sourceTree = "<group>"; };
+		8A546F471BAF17DA00CE3A3F /* CellToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellToolBar.h; sourceTree = "<group>"; };
+		8A546F481BAF17DA00CE3A3F /* CellToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellToolBar.m; sourceTree = "<group>"; };
+		8A546F4A1BAF1B6900CE3A3F /* CellToolBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellToolBarButton.h; sourceTree = "<group>"; };
+		8A546F4B1BAF1B6900CE3A3F /* CellToolBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellToolBarButton.m; sourceTree = "<group>"; };
 		8A93D0711B9605750056D6CA /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
 		8AA4A2241B95F66400FC6772 /* GrandBo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrandBo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AA4A2281B95F66400FC6772 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -75,6 +82,8 @@
 		8AD718721BA424CE000C896D /* Status.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Status.m; sourceTree = "<group>"; };
 		8AD718741BA42637000C896D /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		8AD718751BA42637000C896D /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		8AD762E81BB05B74008DBFBC /* CommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentController.h; sourceTree = "<group>"; };
+		8AD762E91BB05B74008DBFBC /* CommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentController.m; sourceTree = "<group>"; };
 		8AD7E3DA1BAD35630023B492 /* LGRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGRefreshView.h; sourceTree = "<group>"; };
 		8AD7E3DB1BAD35630023B492 /* LGRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGRefreshView.m; sourceTree = "<group>"; };
 		8AD7E3DD1BAD38700023B492 /* DACircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DACircularProgressView.h; sourceTree = "<group>"; };
@@ -287,6 +296,8 @@
 			children = (
 				8A4CAAFC1B9741B600C8AD00 /* HomeController.h */,
 				8A4CAAFD1B9741B600C8AD00 /* HomeController.m */,
+				8AD762E81BB05B74008DBFBC /* CommentController.h */,
+				8AD762E91BB05B74008DBFBC /* CommentController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -313,6 +324,10 @@
 				8AC933421BABF4DB00710C9C /* ImageViewWithCache.m */,
 				8AD7E3E61BADC5040023B492 /* LoadMoreFooter.h */,
 				8AD7E3E71BADC5040023B492 /* LoadMoreFooter.m */,
+				8A546F471BAF17DA00CE3A3F /* CellToolBar.h */,
+				8A546F481BAF17DA00CE3A3F /* CellToolBar.m */,
+				8A546F4A1BAF1B6900CE3A3F /* CellToolBarButton.h */,
+				8A546F4B1BAF1B6900CE3A3F /* CellToolBarButton.m */,
 				8AD7E3DA1BAD35630023B492 /* LGRefreshView.h */,
 				8AD7E3DB1BAD35630023B492 /* LGRefreshView.m */,
 				8AD7E3DD1BAD38700023B492 /* DACircularProgressView.h */,
@@ -439,8 +454,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A4CAAFE1B9741B600C8AD00 /* HomeController.m in Sources */,
+				8A546F4C1BAF1B6900CE3A3F /* CellToolBarButton.m in Sources */,
 				8AD454341B9845920082E808 /* ProfileController.m in Sources */,
 				8AD718731BA424CE000C896D /* Status.m in Sources */,
+				8A546F491BAF17DA00CE3A3F /* CellToolBar.m in Sources */,
 				8AD7E3E81BADC5040023B492 /* LoadMoreFooter.m in Sources */,
 				8AD718701BA42440000C896D /* HomeTableViewCell.m in Sources */,
 				8ABC62D11B9949DC008CBF1A /* IdeaController.m in Sources */,
@@ -456,6 +473,7 @@
 				8AD7E3ED1BAE46F00023B492 /* Token.m in Sources */,
 				8AF821A81BA86A2A00752B64 /* HomeCellFrame.m in Sources */,
 				8AD7E3DC1BAD35630023B492 /* LGRefreshView.m in Sources */,
+				8AD762EA1BB05B74008DBFBC /* CommentController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

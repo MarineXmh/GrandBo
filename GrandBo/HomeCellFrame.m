@@ -46,13 +46,19 @@
     
     CGFloat contentViewX = avatarViewX;
     CGFloat contentViewY = CGRectGetMaxY(self.avatarFrame) + padding;
-    CGSize contentSize = [self sizeWithString:status.content font:[UIFont systemFontOfSize:22.0] maxSize:CGSizeMake(320, MAXFLOAT)];
+    CGSize contentSize = [self sizeWithString:status.content font:[UIFont systemFontOfSize:22.0] maxSize:CGSizeMake(300, MAXFLOAT)];
     CGFloat contentViewW = contentSize.width;
     CGFloat contentViewH = contentSize.height;
     self.contentFrame = CGRectMake(contentViewX, contentViewY, contentViewW, contentViewH);
     //NSLog(@"%f %f", contentViewW, contentViewH);
+    
+    CGFloat toolbarX = contentViewX;
+    CGFloat toolbarY = CGRectGetMaxY(self.contentFrame) + padding;
+    CGFloat toolbarW = 300;
+    CGFloat toolbarH = 21;
+    self.toolBarFrame = CGRectMake(toolbarX, toolbarY, toolbarW, toolbarH);
 
-    self.cellHeight = CGRectGetMaxY(self.contentFrame) + padding;
+    self.cellHeight = CGRectGetMaxY(self.contentFrame) + padding + toolbarH;
     
     //NSLog(@"--SetFrame--%f", self.cellHeight);
 }

@@ -67,7 +67,7 @@
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
     if([textView.text isEqualToString:@"分享新鲜事..."]) {
         textView.text = nil;
-        NSLog(@"%@", textView.text);
+        //NSLog(@"%@", textView.text);
     }
     return YES;
 }
