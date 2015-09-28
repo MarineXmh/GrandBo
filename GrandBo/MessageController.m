@@ -7,6 +7,7 @@
 //
 
 #import "MessageController.h"
+#include "MessageCell.h"
 
 @interface MessageController ()
 
@@ -47,29 +48,17 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell ;//= [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell" forIndexPath:indexPath];
+    MessageCell *cell = [[MessageCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MessageCell"];
     
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
-    } else {
-        
-        
-    }
     switch (indexPath.row) {
         case 0:
-            [cell.textLabel setText:@"@我的"];
-            [cell.imageView setImage:[UIImage imageNamed:@"messagescenter_at"]];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            [cell setTextAndImage:@"@我的" image:@"messagescenter_at"];
             break;
         case 1:
-            [cell.textLabel setText:@"评论"];
-            [cell.imageView setImage:[UIImage imageNamed:@"messagescenter_comments"]];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            [cell setTextAndImage:@"评论" image:@"messagescenter_comments"];
             break;
         case 2:
-            [cell.textLabel setText:@"赞"];
-            [cell.imageView setImage:[UIImage imageNamed:@"messagescenter_good"]];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            [cell setTextAndImage:@"赞" image:@"messagescenter_good"];
             break;
         default:
             break;

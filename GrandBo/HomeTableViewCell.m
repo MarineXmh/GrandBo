@@ -93,13 +93,15 @@
 
 - (void)settingData {
     Status *status = self.cellFrame.status;
-    self.avatarImage.defaultImage = @"weibo_logo";
+    self.avatarImage.defaultImage = @"avatar_default_small";
     self.avatarImage.imageURL = status.user.avatarURL;
     [self.nameLabel setText:status.user.name];
-    [self.timeStampLabel setText:status.time];
+    NSString *date = [status.time substringWithRange:NSMakeRange(0, 10)];
+    NSString *time = [status.time substringWithRange:NSMakeRange(11, 5)];
+    [self.timeStampLabel setText:[NSString stringWithFormat:@"%@ %@", date, time]];
     [self.fromLabel setText:@"来自巨博"];
     [self.contentLabel setText:status.content];
-    //NSLog(@"setData");
+    //NSLog(@"%@", status.time);
 }
 
 - (void)settingFrame {
@@ -114,9 +116,19 @@
 }
 
 - (void)settingToolbar {
+    if (self.cellFrame.status.comentsCount != 0) {
+        [self.toolBar.comment setTitle:[NSString stringWithFormat:@"%d", self.cellFrame.status.comentsCount]  forState:UIControlStateNormal];
+    }
+    
+    if (self.cellFrame.status.likesCount != 0) {
+        [self.toolBar.good setTitle:[NSString stringWithFormat:@"%d", self.cellFrame.status.likesCount]  forState:UIControlStateNormal];
+    }
+    
     [self.toolBar.expand addTarget:self action:@selector(expandBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.toolBar.comment addTarget:self action:@selector(commentBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.toolBar.good addTarget:self action:@selector(goodBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+     //NSLog(@"%@", self.cellFrame.status.comentsCount);
 }
 
 - (void)expandBtnClicked:(CellToolBarButton *)sender {

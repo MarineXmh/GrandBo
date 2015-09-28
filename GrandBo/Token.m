@@ -17,4 +17,18 @@
     return token;
 }
 
++ (BOOL)saveToken:(NSString *)token {
+    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]stringByAppendingPathComponent:@"token.txt"];
+    NSError *error = nil;
+    [token writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    return YES;
+}
+
++ (BOOL)deleteToken {
+    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]stringByAppendingPathComponent:@"token.txt"];
+    NSError *error = nil;
+    [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
+    return YES;
+}
+
 @end

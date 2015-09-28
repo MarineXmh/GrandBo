@@ -29,9 +29,8 @@
     if (_imageURL != imageURL) {
         _imageURL = imageURL;
     }
+    
     if (_imageURL != nil) {
-        NSOperationQueue *queue = [[NSOperationQueue alloc]init];
-        queue.maxConcurrentOperationCount = 2;
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         NSMutableString * path = [[NSMutableString alloc]initWithString:documentsDirectory];
@@ -39,12 +38,22 @@
         
         __block NSData *image = [NSData dataWithContentsOfFile:[NSString stringWithFormat:@"/%@.img", path]];
         if (image == nil) {
-            [queue addOperationWithBlock:^{
-                image = [self loadImage];
-            }];
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                [self loadImage];
+                
+                while (image == nil) {
+                    image = [NSData dataWithContentsOfFile:[NSString stringWithFormat:@"/%@.img", path]];
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self setImage:[UIImage imageWithData:image]];
+                });  
+                
+            });
+        }else {
+            [self setImage:[UIImage imageWithData:image]];
         }
         //NSLog(@"%@", image);
-        [self setImage:[UIImage imageWithData:image]];
     }
 }
 
@@ -55,7 +64,7 @@
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSMutableString * path = [[NSMutableString alloc]initWithString:documentsDirectory];
+    NSMutableString *path = [[NSMutableString alloc]initWithString:documentsDirectory];
     [path appendString:[NSString stringWithFormat:@"/%@", self.imageURL]];
     
     NSFileManager *fm = [NSFileManager defaultManager];
@@ -69,7 +78,7 @@
     if (![fm createFileAtPath:[NSString stringWithFormat:@"/%@.img", path] contents:image attributes:nil]) {
         return nil;
     }
-    
+    //NSLog(@"download");
     return image;
 }
 

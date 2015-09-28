@@ -7,10 +7,14 @@
 //
 
 #import "ProfileController.h"
+#import "ProfileCell.h"
+#import "UserCell.h"
+#import "CurrentUser.h"
+#import "User.h"
 
 @interface ProfileController ()
 
-@property (nonatomic,strong) NSArray *proFileCells;
+@property (nonatomic, strong) User *currentUser;
 
 @end
 
@@ -18,7 +22,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.currentUser = [[User alloc]init];
+    
+    [self getUserInformation];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -26,23 +33,23 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma - Table view data source ande delegate
+#pragma mark - Table view data source and delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 6;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return 2;
+            return 1;
         case 1:
             return 1;
         case 2:
-        case 3:
             return 3;
+        case 3:
+            return 1;
         case 4:
-        case 5:
             return 1;
         default:
             return 0;
@@ -51,13 +58,7 @@
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        switch (indexPath.row) {
-            case 0:
-                return 80;
-                
-            default:
-                return 44;
-        }
+        return 120;
     }
     return 44;
 }
@@ -65,76 +66,43 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell ;//= [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell" forIndexPath:indexPath];
+    if (indexPath.section != 0) {
+        ProfileCell *cell = [[ProfileCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ProfileCell"];
+        if (indexPath.section == 1) {
+            [cell setTextAndImage:@"新的好友" image:@"new_friend"];
+            return cell;
+        }
+        if (indexPath.section == 2) {
+            switch (indexPath.row) {
+                case 0:
+                    [cell setTextAndImage:@"我的相册" image:@"album"];
+                    return cell;
+                case 1:
+                    [cell setTextAndImage:@"我的点评" image:@"collect"];
+                    return cell;
+                case 2:
+                    [cell setTextAndImage:@"我的赞" image:@"like"];
+                    return cell;
+                default:
+                    return cell;
+            }
+        }
+        if (indexPath.section == 3) {
+            [cell setTextAndImage:@"草稿箱" image:@"draft"];
+            return cell;
+        }
+        if (indexPath.section == 4) {
+            [cell setTextAndImage:@"更多" image:@"more"];
+            return cell;
+        }
+    }
     
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
-    } else {
-        
-        
-    }
-    if (indexPath.section == 0) {
-        return cell;
-    }
-    if (indexPath.section == 1) {
-        [cell.textLabel setText:@"新的好友"];
-        [cell.imageView setImage:[UIImage imageNamed:@"toolbar_icon_groupspace"]];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        return cell;
-    }
-    if (indexPath.section == 2) {
-        switch (indexPath.row) {
-            case 0:
-                [cell.textLabel setText:@"我的相册"];
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                [cell.imageView setImage:[UIImage imageNamed:@"toolbar_icon_album"]];
-                return cell;
-            case 1:
-                [cell.textLabel setText:@"我的点评"];
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                [cell.imageView setImage:[UIImage imageNamed:@"toolbar_icon_writing"]];
-                return cell;
-            case 2:
-                [cell.textLabel setText:@"我的赞"];
-                [cell.imageView setImage:[UIImage imageNamed:@"toolbar_icon_unlike"]];
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                return cell;
-            default:
-                return cell;
-        }
-    }
-    if (indexPath.section == 3) {
-        switch (indexPath.row) {
-            case 0:
-                [cell.textLabel setText:@"微博会员"];
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                return cell;
-            case 1:
-                [cell.textLabel setText:@"微博运动"];
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                return cell;
-            case 2:
-                [cell.textLabel setText:@"微博支付"];
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                return cell;
-            default:
-                return cell;
-        }
-    }
-    if (indexPath.section == 4) {
-        [cell.textLabel setText:@"草稿箱"];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        [cell.imageView setImage:[UIImage imageNamed:@"toolbar_compose"]];
-        return cell;
-    }
-    if (indexPath.section == 5) {
-        [cell.textLabel setText:@"更多"];
-        [cell.imageView setImage:[UIImage imageNamed:@"toolbar_more"]];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        return cell;
-    }
-
+    UserCell *cell = [[UserCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UserCell"];
+    
+    [cell settingData:self.currentUser];
+    
     return cell;
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -150,5 +118,40 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - 获得当前登录用户的信息
+
+- (void)getUserInformation {
+    @try {
+        NSString *currentUsername = [CurrentUser loadCurrentUser];
+        NSString *urlString = [NSString stringWithFormat:@"http://vv.fuckjob.top/api/v1/users/%@", currentUsername];
+        NSURL *url = [NSURL URLWithString:urlString];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:3.0];
+        
+        NSURLResponse *response = nil;
+        NSError *error = nil;
+        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        
+        NSError *jsonError = nil;
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
+        NSDictionary *userData = [dict objectForKey:@"user"];
+        
+        self.currentUser.name = [userData objectForKey:@"name"];
+        self.currentUser.id = [userData objectForKey:@"id"];
+        self.currentUser.avatarURL = [userData objectForKey:@"avatar_url"];
+        self.currentUser.micropostsCount = [[userData objectForKey:@"microposts_count"]intValue];
+        self.currentUser.followingCount = [[userData objectForKey:@"following_count"]intValue];
+        self.currentUser.followersCount = [[userData objectForKey:@"followers_count"]intValue];
+        
+        //NSLog(@"%@", self.currentUser.name);
+    }
+    @catch (NSException *exception) {
+        UIAlertView* dialogue = [[UIAlertView alloc]initWithTitle:nil message:@"网络错误" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [dialogue show];
+    }
+    @finally {
+        
+    }
+}
 
 @end

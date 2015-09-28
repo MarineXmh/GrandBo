@@ -7,6 +7,8 @@
 //
 
 #import "LoginController.h"
+#import "Token.h"
+#import "CurrentUser.h"
 
 @interface LoginController ()
 
@@ -26,14 +28,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    /*
-    NSString *savedToken = [self loadToken];
-    //UIAlertView* dialogue = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"%@", savedToken] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    //[dialogue show];
-    if(savedToken != nil) {
-        [self performSegueWithIdentifier:@"Home" sender:savedToken];
-    }
-    */
+    
 }
 
 #pragma mark - prepareForSegue
@@ -51,12 +46,14 @@
 #pragma mark - 事件处理
 
 - (IBAction)login:(UIButton *)sender {
-    NSString *token = [self syncLogin];
+    NSDictionary *data = [self syncLogin];
+    //NSLog(@"%@", [data class]);
+    NSString *token = [data objectForKey:@"access_token"];
+    NSString *currentUsername = [data objectForKey:@"current_user_name"];
     if(token != nil) {
-        [self saveToken:token];
-        [self dismissViewControllerAnimated:YES completion:^{
-            [[self parentViewController] setValue:_userText.text forKeyPath:@"usernameTitle.title"];
-        }];
+        [Token saveToken:token];
+        [CurrentUser saveCurrentUser:currentUsername];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }else {
         UIAlertView* dialogue = [[UIAlertView alloc]initWithTitle:nil message:@"用户名或密码错误" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [dialogue show];
@@ -108,7 +105,7 @@
 
 #pragma mark - 登录方法
 
-- (NSString *)syncLogin {
+- (NSDictionary *)syncLogin {
     NSURLRequest *request = [self postLoginRequest];
     NSError *error = nil;
     NSURLResponse *response = nil;
@@ -120,10 +117,10 @@
     }
     if (data != nil) {
         NSError *jsonError = nil;
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
-        NSString *token = [dict objectForKey:@"access_token"];
-        //NSLog(@"%@",token);
-        return token;
+        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&jsonError];
+        //NSLog(@"%@",[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding]);
+        //NSLog(@"%@", array);
+        return dict;
         
     }else {
         return nil;
@@ -139,22 +136,6 @@
     NSData *body = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
     [request setHTTPBody:body];
     return request;
-}
-
-#pragma mark - 存读Token
-
-- (BOOL)saveToken:(NSString *)token {
-    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]stringByAppendingPathComponent:@"token.txt"];
-    NSError *error = nil;
-    [token writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&error];
-    return YES;
-}
-
-- (NSString *)loadToken {
-    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]stringByAppendingPathComponent:@"token.txt"];
-    NSError *error = nil;
-    NSString *token = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
-    return token;
 }
 
 @end

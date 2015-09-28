@@ -32,7 +32,7 @@
     
     CGFloat timeViewX = nameViewX;
     CGFloat timeViewY = CGRectGetMaxY(self.avatarFrame) - 12;
-    CGSize timeSize = [self sizeWithString:status.time font:[UIFont systemFontOfSize:10.0] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+    CGSize timeSize = [self sizeWithString:@"0000-00-00 00:00" font:[UIFont systemFontOfSize:10.0] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
     CGFloat timeViewW = timeSize.width;
     CGFloat timeViewH = timeSize.height;
     self.timeFrame = CGRectMake(timeViewX, timeViewY, timeViewW, timeViewH);
@@ -58,7 +58,7 @@
     CGFloat toolbarH = 21;
     self.toolBarFrame = CGRectMake(toolbarX, toolbarY, toolbarW, toolbarH);
 
-    self.cellHeight = CGRectGetMaxY(self.contentFrame) + padding + toolbarH;
+    self.cellHeight = CGRectGetMaxY(self.contentFrame) + padding + toolbarH + 5;
     
     //NSLog(@"--SetFrame--%f", self.cellHeight);
 }

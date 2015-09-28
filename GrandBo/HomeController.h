@@ -14,8 +14,7 @@
 @interface HomeController : UIViewController <UITableViewDataSource,UITableViewDelegate,HomeTableViewCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *usernameTitle;
 @property (nonatomic, strong) NSString *token;
-
+@property (nonatomic, strong) NSString *currentUsername;
 
 @end

@@ -10,4 +10,6 @@
 
 @interface ComposeButton : UIButton
 
++ (ComposeButton *)initComposeButtonwithTitle:(NSString *)title image:(NSString *)imageName Frame:(CGRect)frame;
+
 @end

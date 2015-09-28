@@ -13,19 +13,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="ZMT-6E-H66">
-                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <barButtonItem image="tabbar_profile" id="rrd-OD-DHp"/>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Y9L-Sm-CbH"/>
-                                    <barButtonItem title="全部巨博" id="Dl0-sE-A0c">
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="6uc-If-VQY"/>
-                                    <barButtonItem image="navigationbar_icon_radar" id="Abg-89-0WY"/>
-                                </items>
-                            </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ros-eJ-GOD">
                                 <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -35,16 +22,26 @@
                                     <outlet property="delegate" destination="9pv-A4-QxB" id="HIo-C7-c3J"/>
                                 </connections>
                             </tableView>
+                            <navigationBar contentMode="scaleToFill" id="XpL-jz-z0R">
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <items>
+                                    <navigationItem title="全部巨博" id="eLz-iL-b1Q">
+                                        <barButtonItem key="leftBarButtonItem" image="navigationbar_friendsearch" id="Sjc-Am-ORU"/>
+                                        <barButtonItem key="rightBarButtonItem" image="navigationbar_pop" id="j0h-Ub-BPb"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="首页" image="tabbar_home" id="VV1-8Q-yUO"/>
+                    <tabBarItem key="tabBarItem" title="首页" image="tabbar_home_os7" selectedImage="tabbar_home_selected_os7" id="VV1-8Q-yUO"/>
                     <navigationItem key="navigationItem" id="FAL-kV-7zW"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="tableView" destination="Ros-eJ-GOD" id="nld-u7-VrT"/>
-                        <outlet property="usernameTitle" destination="Dl0-sE-A0c" id="58H-cT-XaP"/>
                         <segue destination="bV4-DJ-GcH" kind="modal" identifier="login" id="3pv-Pu-gAF"/>
                         <segue destination="WGO-w0-RuN" kind="modal" identifier="comment" modalTransitionStyle="crossDissolve" id="Isk-U3-NFv"/>
                     </connections>
@@ -64,6 +61,7 @@
                             <navigationBar contentMode="scaleToFill" id="8Qf-fe-Bp6">
                                 <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="barTintColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                                 <items>
                                     <navigationItem title="发评论" id="9eA-j1-Q0v">
                                         <barButtonItem key="leftBarButtonItem" title="取消" style="plain" id="Y1Z-Gh-jzD">
@@ -111,10 +109,15 @@
                             <navigationBar contentMode="scaleToFill" id="lsw-wn-RfJ">
                                 <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <items>
                                     <navigationItem title="我" id="9bZ-Aq-PGP">
                                         <barButtonItem key="leftBarButtonItem" title="添加好友" id="u9z-K5-hOq"/>
-                                        <barButtonItem key="rightBarButtonItem" title="设置" id="IrD-g0-HaO"/>
+                                        <barButtonItem key="rightBarButtonItem" title="设置" id="IrD-g0-HaO">
+                                            <connections>
+                                                <segue destination="9gS-3u-GDg" kind="modal" modalTransitionStyle="flipHorizontal" id="cmo-fL-Ua8"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -131,11 +134,53 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="我" image="tabbar_profile" id="xV0-0H-qEa"/>
+                    <tabBarItem key="tabBarItem" title="我" image="tabbar_profile_os7" selectedImage="tabbar_profile_selected_os7" id="xV0-0H-qEa"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rYj-rC-3yq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1274" y="1951"/>
+        </scene>
+        <!--Setting-->
+        <scene sceneID="vdO-HT-HRI">
+            <objects>
+                <viewController title="Setting" id="9gS-3u-GDg" customClass="SettingController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lPj-xk-eEy">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lt2-AV-bc9">
+                                <rect key="frame" x="20" y="489" width="280" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="退出账号">
+                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="exitCurrentUser:" destination="9gS-3u-GDg" eventType="touchUpInside" id="y19-cG-1mg"/>
+                                </connections>
+                            </button>
+                            <navigationBar contentMode="scaleToFill" id="RFy-dg-Kzg">
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <items>
+                                    <navigationItem title="设置" id="ycn-dX-1zH">
+                                        <barButtonItem key="leftBarButtonItem" image="navigationbar_back" id="UFx-64-Zjl">
+                                            <connections>
+                                                <action selector="backToProfile:" destination="9gS-3u-GDg" id="bFG-eU-fzw"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hBi-FT-ZFB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-828" y="1951"/>
         </scene>
         <!--Discover-->
         <scene sceneID="yob-5o-Sro">
@@ -159,7 +204,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="发现" image="tabbar_discover" id="E2m-sD-6uC"/>
+                    <tabBarItem key="tabBarItem" title="发现" image="tabbar_discover_os7" selectedImage="tabbar_discover_selected_os7" id="E2m-sD-6uC"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xu7-WU-Hg2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -177,6 +222,7 @@
                             <navigationBar contentMode="scaleToFill" id="wSI-cb-P7x">
                                 <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <items>
                                     <navigationItem title="发微博" id="Gcy-1n-zZy">
                                         <barButtonItem key="leftBarButtonItem" title="取消" style="plain" id="sak-9f-STo">
@@ -196,7 +242,7 @@
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <barButtonItem image="surprise_toolbar_picture" id="Xon-c4-VGu"/>
+                                    <barButtonItem image="compose_toolbar_picture_os7" id="Xon-c4-VGu"/>
                                 </items>
                             </toolbar>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="分享新鲜事..." id="lEh-aE-xfc">
@@ -233,6 +279,7 @@
                             <navigationBar contentMode="scaleToFill" id="JH7-Gg-dPJ">
                                 <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <items>
                                     <navigationItem title="消息" id="NKQ-FE-Iac">
                                         <barButtonItem key="rightBarButtonItem" title="发起聊天" id="EcX-s2-RRX"/>
@@ -252,7 +299,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="消息" image="tabbar_message_center" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="消息" image="tabbar_message_center_os7" selectedImage="tabbar_message_center_selected_os7" id="cPa-gy-q4n"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
@@ -268,17 +315,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="obC-HH-vyz">
-                                <rect key="frame" x="16" y="28" width="28" height="28"/>
+                                <rect key="frame" x="15" y="27" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="login_close"/>
-                                <state key="highlighted" image="login_close_highlighted"/>
+                                <state key="normal" image="toolbar_stop"/>
+                                <state key="highlighted" image="toolbar_stop_highlighted"/>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="weibo_logo" id="6vg-d3-B06">
-                                <rect key="frame" x="123" y="86" width="74" height="74"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="eBc-u5-aIU">
-                                <rect key="frame" x="16" y="168" width="304" height="30"/>
+                                <rect key="frame" x="14" y="217" width="304" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="next"/>
@@ -288,15 +331,15 @@
                                 </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_user" highlightedImage="login_user_highlighted" id="XF4-7F-KVL">
-                                <rect key="frame" x="16" y="172" width="19" height="21"/>
+                                <rect key="frame" x="15" y="221" width="19" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_key" highlightedImage="login_key_highlighted" id="gP3-Ji-9pK">
-                                <rect key="frame" x="16" y="226" width="19" height="21"/>
+                                <rect key="frame" x="14" y="259" width="19" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="w8f-l1-Eve">
-                                <rect key="frame" x="16" y="269" width="292" height="30"/>
+                                <rect key="frame" x="14" y="298" width="292" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="登录">
@@ -307,7 +350,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Yuf-es-da0">
-                                <rect key="frame" x="130" y="307" width="60" height="30"/>
+                                <rect key="frame" x="130" y="336" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="注册账号">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -317,7 +360,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="Ti4-To-DvZ">
-                                <rect key="frame" x="16" y="222" width="304" height="30"/>
+                                <rect key="frame" x="14" y="255" width="304" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
@@ -326,6 +369,10 @@
                                     <outlet property="delegate" destination="bV4-DJ-GcH" id="9HU-Ox-jW1"/>
                                 </connections>
                             </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_default_big" id="6vg-d3-B06">
+                                <rect key="frame" x="118" y="92" width="85" height="85"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <connections>
@@ -372,9 +419,9 @@
                     <view key="view" contentMode="scaleToFill" id="dbl-oe-QET">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="tabbar_compose_icon_add" id="gs1-Kz-hV5"/>
+                    <tabBarItem key="tabBarItem" title="" image="tabbar_compose_icon_add" selectedImage="tabbar_compose_icon_add_highlighted" id="gs1-Kz-hV5"/>
                     <connections>
                         <segue destination="d4Z-2S-pZC" kind="modal" identifier="Idea" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="TLf-g4-Oya"/>
                     </connections>
@@ -385,19 +432,26 @@
         </scene>
     </scenes>
     <resources>
-        <image name="login_close" width="18" height="18"/>
-        <image name="login_close_highlighted" width="18" height="18"/>
+        <image name="avatar_default_big" width="85" height="85"/>
+        <image name="compose_toolbar_picture_os7" width="24" height="24"/>
         <image name="login_key" width="19" height="21"/>
         <image name="login_key_highlighted" width="19" height="21"/>
         <image name="login_user" width="19" height="20"/>
         <image name="login_user_highlighted" width="19" height="20"/>
-        <image name="navigationbar_icon_radar" width="30" height="30"/>
-        <image name="surprise_toolbar_picture" width="30" height="30"/>
+        <image name="navigationbar_back" width="30" height="30"/>
+        <image name="navigationbar_friendsearch" width="30" height="30"/>
+        <image name="navigationbar_pop" width="30" height="30"/>
         <image name="tabbar_compose_icon_add" width="25" height="25"/>
-        <image name="tabbar_discover" width="30" height="30"/>
-        <image name="tabbar_home" width="30" height="30"/>
-        <image name="tabbar_message_center" width="30" height="30"/>
-        <image name="tabbar_profile" width="30" height="30"/>
-        <image name="weibo_logo" width="74" height="74"/>
+        <image name="tabbar_compose_icon_add_highlighted" width="25" height="25"/>
+        <image name="tabbar_discover_os7" width="30" height="30"/>
+        <image name="tabbar_discover_selected_os7" width="30" height="30"/>
+        <image name="tabbar_home_os7" width="30" height="30"/>
+        <image name="tabbar_home_selected_os7" width="30" height="30"/>
+        <image name="tabbar_message_center_os7" width="30" height="30"/>
+        <image name="tabbar_message_center_selected_os7" width="30" height="30"/>
+        <image name="tabbar_profile_os7" width="30" height="30"/>
+        <image name="tabbar_profile_selected_os7" width="30" height="30"/>
+        <image name="toolbar_stop" width="28" height="28"/>
+        <image name="toolbar_stop_highlighted" width="28" height="28"/>
     </resources>
 </document>

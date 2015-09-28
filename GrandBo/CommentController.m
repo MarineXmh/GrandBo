@@ -42,7 +42,7 @@
             UIAlertView* dialogue = [[UIAlertView alloc]initWithTitle:nil message:@"发送失败" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [dialogue show];
         }
-        NSLog(@"%@", [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding]);
+        //NSLog(@"%@", [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding]);
     }];
     [self dismissViewControllerAnimated:YES completion:^{
         
@@ -52,8 +52,8 @@
 //构造post请求
 - (NSURLRequest *) postRequest {
     //NSLog(@"%d", self.status.id);
-    NSString *urlString = [[NSString alloc]initWithFormat:@"http://vv.fuckjob.top/api/v1/microposts/%@/comments", self.status.id];
-    NSLog(@"%@", urlString);
+    NSString *urlString = [[NSString alloc]initWithFormat:@"http://vv.fuckjob.top/api/v1/microposts/%d/comments", self.status.id];
+    //NSLog(@"%@", urlString);
     
     NSURL *url = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:3.0];

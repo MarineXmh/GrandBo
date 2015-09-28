@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface LoginController : UIViewController <UITextFieldDelegate>
+
 @property (weak, nonatomic) IBOutlet UITextField *userText;
 @property (weak, nonatomic) IBOutlet UITextField *passwordText;
 
@@ -17,7 +18,5 @@
 - (IBAction)userChanged:(UITextField *)sender;
 - (IBAction)passwordChanged:(UITextField *)sender;
 - (IBAction)backgroundTouchDown:(UIControl *)sender;
-
-- (NSString *)loadToken;
 
 @end

@@ -13,5 +13,8 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *avatarURL;
 @property (nonatomic, strong) NSNumber *id;
+@property (nonatomic, assign) int micropostsCount;
+@property (nonatomic, assign) int followingCount;
+@property (nonatomic, assign) int followersCount;
 
 @end

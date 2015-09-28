@@ -10,4 +10,11 @@
 
 @interface ComposeController : UIViewController
 
+@property (nonatomic,strong) UIButton *ideaBtn;
+@property (nonatomic,strong) UIButton *photoBtn;
+@property (nonatomic,strong) UIButton *cameraBtn;
+@property (nonatomic,strong) UIButton *lbsBtn;
+@property (nonatomic,strong) UIButton *reviewBtn;
+@property (nonatomic,strong) UIButton *moreBtn;
+
 @end

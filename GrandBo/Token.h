@@ -11,5 +11,7 @@
 @interface Token : NSObject
 
 + (NSString *)loadToken;
++ (BOOL)saveToken:(NSString *)token;
++ (BOOL)deleteToken;
 
 @end

@@ -31,13 +31,13 @@
     [super viewDidLoad];
     
     self.statusFrames = [[NSMutableArray alloc]init];
-    self.pageIndex = 1;
     
     [self refresh];
     UITableViewHeaderFooterView *footerView = [self.tableView footerViewForSection:1];
-    _footer = [[LoadMoreFooter alloc]init];
+    self.footer = [[LoadMoreFooter alloc]init];
     [footerView addSubview:_footer];
     self.tableView.tableFooterView = _footer;
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,6 +46,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    self.pageIndex = 1;
     self.token = [Token loadToken];
     
     if (self.token == nil) {
@@ -54,6 +55,7 @@
     
     [self getFeed:self.pageIndex++];
     [self.tableView reloadData];
+    //NSLog(@"%@", self.currentUsername);
 }
 
 #pragma mark - TableView数据源和代理方法
@@ -68,12 +70,11 @@
 }
 
 - (HomeTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HomeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeTableViewCell"];
+    //HomeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeTableViewCell"];
+    HomeTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
     if (cell == nil) {
         cell = [[HomeTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HomeTableViewCell"];
-        cell.opaque = YES;
-        cell.backgroundColor = [UIColor clearColor];
     }
     
     cell.cellFrame = self.statusFrames[indexPath.row];
@@ -91,6 +92,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -139,7 +141,7 @@
 
 - (void)getFeed:(int)page {
     @try {
-        NSString *urlString = [NSString stringWithFormat:@"http://vv.fuckjob.top/api/v1/home_feed.json?access_token=%@&page=%d", _token, page];
+        NSString *urlString = [NSString stringWithFormat:@"http://vv.fuckjob.top/api/v1/home_feed.json?access_token=%@&page=%d", self.token, page];
         NSURL *url = [NSURL URLWithString:urlString];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:3.0];
         [request setHTTPMethod:@"get"];
@@ -147,6 +149,7 @@
         NSError *error = nil;
         
         NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&respons error:&error];
+        
         NSError *jsonError = nil;
         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
         NSArray *array = [dictionary objectForKey:@"microposts"];
@@ -161,11 +164,13 @@
             user.avatarURL = [[array[i] objectForKey:@"user"]objectForKey:@"avatar_url"];
             status.content = [array[i] objectForKey:@"content"];
             status.time = [array[i] objectForKey:@"created_at"];
-            status.id = [array[i] objectForKey:@"id"];
+            status.id = [[array[i] objectForKey:@"id"]intValue];
+            status.comentsCount = [[array[i] objectForKey:@"comments_count"]intValue];
+            status.likesCount = [[array[i] objectForKey:@"likes_count"]intValue];
             status.user = user;
             cellFrame.status = status;
             [self.statusFrames addObject:cellFrame];
-            //NSLog(@"%@", self.statusFrames);
+            //NSLog(@"%d", cellFrame.status.comentsCount);
         }
     }
     @catch (NSException *exception) {
