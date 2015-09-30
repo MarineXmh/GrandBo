@@ -26,6 +26,10 @@
     
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [self.contentView becomeFirstResponder];
+}
+
 #pragma mark - 事件处理
 
 - (IBAction)cancel:(UIBarButtonItem *)sender {
@@ -64,20 +68,17 @@
     return request;
 }
 
-//第一次开始编辑清空textView内容
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
-    if([textView.text isEqualToString:@"写评论..."]) {
-        textView.text = nil;
-        //NSLog(@"%@", textView.text);
-    }
-    return YES;
-}
-
 //监听键盘返回键，点击收起键盘
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
     }
+    
+    if([textView.text isEqualToString:@"写评论..."]) {
+        textView.text = nil;
+        //NSLog(@"%@", textView.text);
+    }
+    
     return YES;
 }
 

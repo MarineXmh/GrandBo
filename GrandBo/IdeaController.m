@@ -20,19 +20,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _token = [Token loadToken];
+    self.token = [Token loadToken];
     
-    [self registerForKeyboardNotifications];
+    //[self registerForKeyboardNotifications];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [self.contentText becomeFirstResponder];
+}
+
 #pragma mark - 事件处理
 
 - (IBAction)cancel:(UIBarButtonItem *)sender {
-    [_contentText resignFirstResponder];
+    [self.contentText resignFirstResponder];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -63,8 +67,11 @@
     return request;
 }
 
-//第一次开始编辑清空textView内容
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+//监听键盘返回键，点击收起键盘
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+    }
     if([textView.text isEqualToString:@"分享新鲜事..."]) {
         textView.text = nil;
         //NSLog(@"%@", textView.text);
@@ -72,16 +79,31 @@
     return YES;
 }
 
-//监听键盘返回键，点击收起键盘
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    if([text isEqualToString:@"\n"]) {
-        [textView resignFirstResponder];
-    }
+#pragma mark - 使footerBar动态随键盘移动
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    [UIView animateWithDuration:0.25 animations:^{
+        CGRect contentViewFrame = CGRectMake(0, 64, 320, 460 - 252);
+        self.contentText.frame = contentViewFrame;
+        
+        CGRect footerBarFrame = CGRectMake(0, 524 - 252, 320, 44);
+        self.footerBar.frame = footerBarFrame;
+    }];
     return YES;
 }
 
-#pragma mark - 使footerBar动态随键盘移动
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView {
+    [UIView animateWithDuration:0.25 animations:^{
+        CGRect footerBarFrame = CGRectMake(0, 524, 320, 44);
+        self.footerBar.frame = footerBarFrame;
+        
+        CGRect contentViewFrame = CGRectMake(0, 64, 320, 460);
+        self.contentText.frame = contentViewFrame;
+    }];
+    return YES;
+}
 
+/*
 - (void) registerForKeyboardNotifications
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardDidShowNotification object:nil];
@@ -91,17 +113,18 @@
 
 - (void) keyboardWasShown:(NSNotification *) notif
 {
-    NSDictionary *info = [notif userInfo];
+    //NSDictionary *info = [notif userInfo];
     
-    NSValue *value = [info objectForKey:UIKeyboardFrameBeginUserInfoKey];
-    CGSize keyboardSize = [value CGRectValue].size;
+    //NSValue *value = [info objectForKey:UIKeyboardFrameBeginUserInfoKey];
+    //CGSize keyboardSize = [value CGRectValue].size;
+    //NSLog(@"%f", keyboardSize.height);
     
     [UIView animateWithDuration:0.2 animations:^{
-        CGRect footerBarFrame = CGRectMake(0, _footerBar.frame.origin.y - keyboardSize.height, 320, 44);
-        _footerBar.frame = footerBarFrame;
+        CGRect contentViewFrame = CGRectMake(0, 64, 320, 460 - 252);
+        self.contentText.frame = contentViewFrame;
         
-        CGRect contentViewFrame = CGRectMake(0, 64, 320, _contentText.frame.size.height - keyboardSize.height);
-        _contentText.frame = contentViewFrame;
+        CGRect footerBarFrame = CGRectMake(0, 524 - 252, 320, 44);
+        self.footerBar.frame = footerBarFrame;
     }];
     
     //NSLog(@"x=%f,y=%f,w=%f,h=%f", _footerBar.frame.origin.x, _footerBar.frame.origin.y, _footerBar.frame.size.width, _footerBar.frame.size.height);
@@ -109,23 +132,23 @@
 }
 - (void) keyboardWasHidden:(NSNotification *) notif
 {
-    NSDictionary *info = [notif userInfo];
+    //NSDictionary *info = [notif userInfo];
     
-    NSValue *value = [info objectForKey:UIKeyboardFrameBeginUserInfoKey];
-    CGSize keyboardSize = [value CGRectValue].size;
+    //NSValue *value = [info objectForKey:UIKeyboardFrameBeginUserInfoKey];
+    //CGSize keyboardSize = [value CGRectValue].size;
     
     [UIView animateWithDuration:0.2 animations:^{
-        CGRect footerBarFrame = CGRectMake(0, _footerBar.frame.origin.y + keyboardSize.height, 320, 44);
-        _footerBar.frame = footerBarFrame;
+        CGRect footerBarFrame = CGRectMake(0, 524, 320, 44);
+        self.footerBar.frame = footerBarFrame;
         
-        CGRect contentViewFrame = CGRectMake(0, 64, 320, _contentText.frame.size.height + keyboardSize.height);
-        _contentText.frame = contentViewFrame;
+        CGRect contentViewFrame = CGRectMake(0, 64, 320, 460);
+        self.contentText.frame = contentViewFrame;
     }];
     
     
     //NSLog(@"x=%f,y=%f,w=%f,h=%f", _footerBar.frame.origin.x, _footerBar.frame.origin.y, _footerBar.frame.size.width, _footerBar.frame.size.height);
     //NSLog(@"keyboardWasHidden keyBoard:%f", keyboardSize.height);
 }
-
+*/
 
 @end

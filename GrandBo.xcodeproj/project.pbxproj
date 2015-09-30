@@ -12,6 +12,7 @@
 		8A4CAAFE1B9741B600C8AD00 /* HomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4CAAFD1B9741B600C8AD00 /* HomeController.m */; };
 		8A546F491BAF17DA00CE3A3F /* CellToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A546F481BAF17DA00CE3A3F /* CellToolBar.m */; settings = {ASSET_TAGS = (); }; };
 		8A546F4C1BAF1B6900CE3A3F /* CellToolBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A546F4B1BAF1B6900CE3A3F /* CellToolBarButton.m */; settings = {ASSET_TAGS = (); }; };
+		8A8A37AB1BBA3AEE0077FA0A /* SignUpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A8A37AA1BBA3AEE0077FA0A /* SignUpController.m */; settings = {ASSET_TAGS = (); }; };
 		8A93D0721B9605750056D6CA /* images in Resources */ = {isa = PBXBuildFile; fileRef = 8A93D0711B9605750056D6CA /* images */; };
 		8AA4A22A1B95F66400FC6772 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA4A2291B95F66400FC6772 /* main.m */; };
 		8AA4A22D1B95F66400FC6772 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA4A22C1B95F66400FC6772 /* AppDelegate.m */; };
@@ -62,6 +63,8 @@
 		8A546F481BAF17DA00CE3A3F /* CellToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellToolBar.m; sourceTree = "<group>"; };
 		8A546F4A1BAF1B6900CE3A3F /* CellToolBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellToolBarButton.h; sourceTree = "<group>"; };
 		8A546F4B1BAF1B6900CE3A3F /* CellToolBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellToolBarButton.m; sourceTree = "<group>"; };
+		8A8A37A91BBA3AEE0077FA0A /* SignUpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpController.h; sourceTree = "<group>"; };
+		8A8A37AA1BBA3AEE0077FA0A /* SignUpController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpController.m; sourceTree = "<group>"; };
 		8A93D0711B9605750056D6CA /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
 		8AA4A2241B95F66400FC6772 /* GrandBo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrandBo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AA4A2281B95F66400FC6772 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -174,6 +177,23 @@
 			name = AppDelegateAndOther;
 			sourceTree = "<group>";
 		};
+		8A8A37A71BBA3AC50077FA0A /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				8A8A37A81BBA3AD40077FA0A /* Controller */,
+			);
+			name = SignUp;
+			sourceTree = "<group>";
+		};
+		8A8A37A81BBA3AD40077FA0A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				8A8A37A91BBA3AEE0077FA0A /* SignUpController.h */,
+				8A8A37AA1BBA3AEE0077FA0A /* SignUpController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 		8A8AF0DA1BAC655D00A25EA4 /* Compose */ = {
 			isa = PBXGroup;
 			children = (
@@ -219,6 +239,7 @@
 				8A8AF0E01BAC664700A25EA4 /* Message */,
 				8A8AF0DF1BAC664400A25EA4 /* Profile */,
 				8A819C341BAEFA5E00C8796C /* Login */,
+				8A8A37A71BBA3AC50077FA0A /* SignUp */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -539,6 +560,7 @@
 				8A4CAAFB1B97416500C8AD00 /* MessageController.m in Sources */,
 				8AC933431BABF4DB00710C9C /* ImageViewWithCache.m in Sources */,
 				8AD5DF931B9B115700B393B3 /* LoginController.m in Sources */,
+				8A8A37AB1BBA3AEE0077FA0A /* SignUpController.m in Sources */,
 				8AD7E3DF1BAD38700023B492 /* DACircularProgressView.m in Sources */,
 				8ADA3F041BB2D906007A9AA7 /* CurrentUser.m in Sources */,
 				8AD9A5061BB8421A006BB234 /* SettingController.m in Sources */,

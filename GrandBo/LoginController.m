@@ -28,7 +28,11 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    NSString *token = [Token loadToken];
     
+    if (token != nil) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 #pragma mark - prepareForSegue
@@ -66,7 +70,7 @@
 
 - (IBAction)userChanged:(UITextField *)sender {
     UIImageView *image = (UIImageView *)[self.view viewWithTag:1];
-    if (sender.text == nil) {
+    if ([sender.text isEqualToString:@""]) {
         image.highlighted = NO;
     }else {
         image.highlighted = YES;
@@ -87,16 +91,16 @@
 #pragma mark - 键盘处理
 
 - (IBAction)backgroundTouchDown:(UIControl *)sender {
-    [_userText resignFirstResponder];
-    [_passwordText  resignFirstResponder];
+    [self.userText resignFirstResponder];
+    [self.passwordText  resignFirstResponder];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if (textField == _passwordText) {
+    if (textField == self.passwordText) {
         [self login:nil];
     }
-    if (textField == _userText) {
-        [_passwordText becomeFirstResponder];
+    if (textField == self.userText) {
+        [self.passwordText becomeFirstResponder];
         return YES;
     }
     [textField resignFirstResponder];
@@ -132,7 +136,7 @@
     NSURL *url = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:3.0];
     [request setHTTPMethod:@"post"];
-    NSString *bodyString = [NSString stringWithFormat:@"email=%@&password=%@", _userText.text, _passwordText.text];
+    NSString *bodyString = [NSString stringWithFormat:@"email=%@&password=%@", self.userText.text, self.passwordText.text];
     NSData *body = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
     [request setHTTPBody:body];
     return request;

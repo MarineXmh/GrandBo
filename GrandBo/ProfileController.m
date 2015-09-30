@@ -124,7 +124,7 @@
 - (void)getUserInformation {
     @try {
         NSString *currentUsername = [CurrentUser loadCurrentUser];
-        NSString *urlString = [NSString stringWithFormat:@"http://vv.fuckjob.top/api/v1/users/%@", currentUsername];
+        NSString *urlString = [NSString stringWithFormat:@"http://vv.fuckjob.top/api/v1/users/%@", [currentUsername stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         NSURL *url = [NSURL URLWithString:urlString];
         NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:3.0];
         
