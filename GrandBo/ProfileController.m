@@ -35,6 +35,17 @@
 
 #pragma mark - Table view data source and delegate
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return  5;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return 10;
+    }
+    return 5;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 5;
 }

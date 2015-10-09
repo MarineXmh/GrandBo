@@ -52,6 +52,8 @@
     [self.good setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     self.good.titleLabel.font = [UIFont systemFontOfSize:10.0];
     [self.good setImage:[UIImage imageNamed:@"timeline_icon_unlike"] forState:UIControlStateNormal];
+    [self.good setImage:[UIImage imageNamed:@"timeline_icon_like"] forState:UIControlStateHighlighted];
+    self.good.tag = 0;
     self.good.opaque = YES;
     [self addSubview:self.good];
     

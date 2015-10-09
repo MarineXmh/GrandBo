@@ -122,6 +122,10 @@
     
     if (self.cellFrame.status.likesCount != 0) {
         [self.toolBar.good setTitle:[NSString stringWithFormat:@"%d", self.cellFrame.status.likesCount]  forState:UIControlStateNormal];
+        if (self.cellFrame.status.isLiked == 1) {
+            [self.toolBar.good setImage:[UIImage imageNamed:@"timeline_icon_like"] forState:UIControlStateNormal];
+            [self.toolBar.good setImage:[UIImage imageNamed:@"timeline_icon_unlike"] forState:UIControlStateHighlighted];
+        }
     }
     
     [self.toolBar.expand addTarget:self action:@selector(expandBtnClicked:) forControlEvents:UIControlEventTouchUpInside];

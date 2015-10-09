@@ -15,6 +15,7 @@
 #import "LGRefreshView.h"
 #import "LoadMoreFooter.h"
 #import "Token.h"
+#import "CellToolBarButton.h"
 
 @interface HomeController ()
 
@@ -35,8 +36,8 @@
     [self refresh];
     UITableViewHeaderFooterView *footerView = [self.tableView footerViewForSection:1];
     self.footer = [[LoadMoreFooter alloc]init];
-    [footerView addSubview:_footer];
-    self.tableView.tableFooterView = _footer;
+    [footerView addSubview:self.footer];
+    self.tableView.tableFooterView = self.footer;
     
 }
 
@@ -90,6 +91,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    HomeCellFrame *cellFrame = [self.statusFrames objectAtIndex:indexPath.row];
+    Status *status = cellFrame.status;
+    [self performSegueWithIdentifier:@"homeToDetail" sender:status];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -167,10 +171,11 @@
             status.id = [[array[i] objectForKey:@"id"]intValue];
             status.comentsCount = [[array[i] objectForKey:@"comments_count"]intValue];
             status.likesCount = [[array[i] objectForKey:@"likes_count"]intValue];
+            status.isLiked = [[array[i] objectForKey:@"liked"]boolValue];
             status.user = user;
             cellFrame.status = status;
             [self.statusFrames addObject:cellFrame];
-            //NSLog(@"%d", cellFrame.status.comentsCount);
+            //NSLog(@"%d", cellFrame.status.isLiked);
         }
     }
     @catch (NSException *exception) {
@@ -248,19 +253,75 @@
 #pragma mark - 处理Toolbar按钮点击事件
 
 - (void)didExpandBtnClicked:(CellToolBarButton *)button indexPath:(NSIndexPath *)indexPath {
-    
+    HomeCellFrame *cellFrame = [self.statusFrames objectAtIndex:indexPath.row];
+    Status *status = cellFrame.status;
+    [self performSegueWithIdentifier:@"expand" sender:status];
 }
 
 - (void)didCommentBtnClicked:(CellToolBarButton *)button indexPath:(NSIndexPath *)indexPath {
     HomeCellFrame *cellFrame = [self.statusFrames objectAtIndex:indexPath.row];
     Status *status = cellFrame.status;
+    if (status.comentsCount == 0) {
+        [self performSegueWithIdentifier:@"comment" sender:status];
+    }else {
+        [self performSegueWithIdentifier:@"homeToDetail" sender:status];
+    }
     //NSLog(@"%@", button);
     //NSLog(@"%ld",indexPath.row);
-    [self performSegueWithIdentifier:@"comment" sender:status];
+    
 }
 
+//点赞按钮的事件处理
 - (void)didGoodBtnClicked:(CellToolBarButton *)button indexPath:(NSIndexPath *)indexPath {
+    HomeCellFrame *cellFrame = self.statusFrames[indexPath.row];
+    Status *status = cellFrame.status;
     
+    NSString *urlString = @"http://vv.fuckjob.top/api/v1/likes";
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:3.0];
+    NSString *bodyString = [NSString stringWithFormat:@"access_token=%@&subject_id=%d&subject_type=%@", self.token, status.id, @"Micropost"];
+    NSData *body = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
+    [request setHTTPBody:body];
+
+    if (status.isLiked == 1) {
+        //取消点赞
+        NSString *contentType = [NSString stringWithFormat:@"multipart/form-data"];
+        [request addValue:contentType forHTTPHeaderField: @"Content-Type"];
+        [request setHTTPMethod:@"delete"];
+        
+        [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc]init] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+            if (connectionError != nil) {
+                UIAlertView *dialogue = [[UIAlertView alloc]initWithTitle:nil message:@"取消点赞发生错误" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [dialogue show];
+            }
+            
+            //NSLog(@"%@", [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding]);
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [button setTitle:[NSString stringWithFormat:@"%d", --status.likesCount] forState:UIControlStateNormal];
+                [button setImage:[UIImage imageNamed:@"timeline_icon_unlike"] forState:UIControlStateNormal];
+                [button setImage:[UIImage imageNamed:@"timeline_icon_like"] forState:UIControlStateHighlighted];
+                status.isLiked = 0;
+            }];
+        }];
+    }else {
+        //点赞
+        [request setHTTPMethod:@"post"];
+        
+        [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc]init] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+            if (connectionError != nil) {
+                UIAlertView *dialogue = [[UIAlertView alloc]initWithTitle:nil message:@"点赞发生错误" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [dialogue show];
+            }
+            //NSLog(@"%@", [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding]);
+            
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [button setTitle:[NSString stringWithFormat:@"%d", ++status.likesCount] forState:UIControlStateNormal];
+                [button setImage:[UIImage imageNamed:@"timeline_icon_like"] forState:UIControlStateNormal];
+                [button setImage:[UIImage imageNamed:@"timeline_icon_unlike"] forState:UIControlStateHighlighted];
+                status.isLiked = 1;
+            }];
+        }];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -268,6 +329,16 @@
         UIViewController *destination = [segue destinationViewController];
         [destination setValue:sender forKey:@"status"];
         //NSLog(@"%@", [sender valueForKeyPath:@"id"]);
+    }
+    
+    if ([segue.identifier isEqualToString:@"expand"]) {
+        UIViewController *destination = [segue destinationViewController];
+        [destination setValue:sender forKey:@"status"];
+    }
+    
+    if ([segue.identifier isEqualToString:@"homeToDetail"]) {
+        UIViewController *destination = [segue destinationViewController];
+        [destination setValue:sender forKey:@"status"];
     }
 }
 

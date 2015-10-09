@@ -18,5 +18,6 @@
 @property (nonatomic, strong) NSString *time;
 @property (nonatomic, assign) int likesCount;
 @property (nonatomic, assign) int comentsCount;
+@property (nonatomic, assign) BOOL isLiked;
 
 @end

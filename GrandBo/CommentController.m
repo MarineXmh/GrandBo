@@ -63,6 +63,9 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:3.0];
     [request setHTTPMethod:@"post"];
     NSString *bodyString = [NSString stringWithFormat:@"access_token=%@&content=%@", self.token, self.contentView.text];
+    if ([self.commentWithExpand isOn]) {
+        bodyString = [NSString stringWithFormat:@"access_token=%@&content=%@&same_time_expand=%d", self.token, self.contentView.text,[self.commentWithExpand isOn]];
+    }
     NSData *body = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
     [request setHTTPBody:body];
     return request;

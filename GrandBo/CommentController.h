@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSString *token;
 @property (nonatomic, strong) Status *status;
 @property (weak, nonatomic) IBOutlet UITextView *contentView;
+@property (weak, nonatomic) IBOutlet UISwitch *commentWithExpand;
 
 - (IBAction)sendComment:(UIBarButtonItem *)sender;
 - (IBAction)cancel:(UIBarButtonItem *)sender;
