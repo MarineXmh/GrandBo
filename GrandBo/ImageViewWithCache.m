@@ -31,9 +31,9 @@
     }
     
     if (_imageURL != nil) {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
-        NSString *documentsDirectory = [paths objectAtIndex:0];
-        NSMutableString * path = [[NSMutableString alloc]initWithString:documentsDirectory];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask, YES);
+        NSString *cacheDirectory = [paths objectAtIndex:0];
+        NSMutableString * path = [[NSMutableString alloc]initWithString:cacheDirectory];
         [path appendString:[NSString stringWithFormat:@"/%@", self.imageURL]];
         
         __block NSData *image = [NSData dataWithContentsOfFile:[NSString stringWithFormat:@"/%@.img", path]];
@@ -62,9 +62,9 @@
 - (NSData *)loadImage {
     NSData *image = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.imageURL]];
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSMutableString *path = [[NSMutableString alloc]initWithString:documentsDirectory];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask, YES);
+    NSString *cacheDirectory = [paths objectAtIndex:0];
+    NSMutableString *path = [[NSMutableString alloc]initWithString:cacheDirectory];
     [path appendString:[NSString stringWithFormat:@"/%@", self.imageURL]];
     
     NSFileManager *fm = [NSFileManager defaultManager];
